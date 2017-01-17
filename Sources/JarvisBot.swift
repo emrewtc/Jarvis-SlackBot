@@ -81,10 +81,24 @@ class JarvisBot: MessageEventsDelegate, ChannelEventsDelegate
     // MARK: Message Handlers
     fileprivate func handleMentionToSelf(message: Message, client: Client)
     {
-        if let _ = message.text?.lowercased(), let channel = message.channel
+        if let messageText = message.text?.lowercased(with: Locale(identifier: "en_US")), let channel = message.channel
         {
-            // GIPHY Send a Random Gif when Jarvis mentioned
-            actions.gif.sendRandomGif(message: message, client: client);   
+            if(messageText.contains("gif")) // Send a random gif by tag when Jarvis mentioned with gif [tag]
+            {
+                var tag = "";
+                for item in messageText.components(separatedBy: "gif ")
+                {
+                    if(!item.contains((client.authenticatedUser?.id?.lowercased())!))
+                    {
+                        tag.append(item);
+                    }
+                }
+                actions.gif.sendRandomGifByTag(message: message, client: client, tag: tag);
+            }
+            else // Send a Random Gif when Jarvis mentioned
+            {
+                actions.gif.sendRandomGif(message: message, client: client);
+            }
         }
     }
     
