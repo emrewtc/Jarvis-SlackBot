@@ -35,6 +35,45 @@ public class Utils
         return nil;
     }
     
+    // Genre Types for SoundCloud Action
+    public func getGenreForMusic(messageText: String) -> String
+    {
+        var genre = "all-music"
+        for item in messageText.components(separatedBy: " ")
+        {
+            switch item
+            {
+            case "rap":
+                genre = "hiphoprap";
+                break;
+            case "rnb", "r&b":
+                genre = "rbsoul"
+                break;
+            case "dancehall":
+                genre = "dancehall"
+                break;
+            case "rock":
+                genre = "rock"
+                break;
+            case "metal":
+                genre = "metal"
+                break;
+            case "reggae":
+                genre = "reggae"
+                break;
+            case "dubstep":
+                genre = "dubstep"
+                break;
+            case "electronic":
+                genre = "electronic"
+                break;
+            default:
+                break;
+            }
+        }
+        return genre;
+    }
+    
     public func dispatch(with method: String?, urlString: String,
                          queryItems: Dictionary<String,String>?, bodyParams: Dictionary<String, AnyObject>?,
                          success: @escaping ((_ response: Dictionary<String, AnyObject>?)->Void),
