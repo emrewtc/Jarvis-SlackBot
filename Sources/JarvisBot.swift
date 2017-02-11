@@ -95,6 +95,20 @@ class JarvisBot: MessageEventsDelegate, ChannelEventsDelegate
                 }
                 actions.gif.sendRandomGifByTag(message: message, client: client, tag: tag);
             }
+            else if(messageText.contains("songs")) // Post top or trending charts by genre (e.g: @jarvis top rap songs)
+            {
+                let genre = utils.getGenreForMusic(messageText: messageText);
+                var type = "top";
+                if(messageText.contains("top"))
+                {
+                    type = "top";
+                }
+                else if(messageText.contains("trending"))
+                {
+                    type = "trending";
+                }
+                actions.sc.getCharts(message: message, client: client, type: type, genre: genre);
+            }
             else // Send a Random Gif when Jarvis mentioned
             {
                 actions.gif.sendRandomGif(message: message, client: client);
