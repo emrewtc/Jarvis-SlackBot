@@ -10,4 +10,5 @@ import Foundation
 public struct Actions
 {
     let gif = GifAction();
+    let sc = SCAction();
 }
